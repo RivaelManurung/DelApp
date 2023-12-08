@@ -1,6 +1,7 @@
+import 'package:delapp/views/logins_page.dart';
 import 'package:flutter/material.dart';
-import 'package:forumapp/controllers/authentication.dart';
-import 'package:forumapp/views/login_page.dart';
+import 'package:delapp/controllers/authentication.dart';
+import 'package:delapp/views/login_page.dart';
 import 'package:get/get.dart';
 import './widgets/input_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -109,7 +110,7 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
               TextButton(
                 onPressed: () {
-                  Get.to(() => const LoginPage());
+                  Get.to(() => const LoginsPage());
                 },
                 child: Text(
                   'Login',

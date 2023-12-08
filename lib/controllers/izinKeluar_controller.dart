@@ -1,36 +1,36 @@
 import 'dart:convert';
 
+import 'package:delapp/models/izinKeluar_model.dart';
 import 'package:flutter/material.dart';
 import 'package:delapp/constants/constants.dart';
-import 'package:delapp/models/surat_model.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 
-class SuratController extends GetxController {
-  Rx<List<SuratModel>> surats = Rx<List<SuratModel>>([]);
+class IzinKeluarController extends GetxController {
+  Rx<List<IzinKeluarModel>> izins = Rx<List<IzinKeluarModel>>([]);
   final isLoading = false.obs;
   final box = GetStorage();
 
   @override
   void onInit() {
-    getAllSurats();
+    getAllIzinKeluars();
     super.onInit();
   }
 
-  Future getAllSurats() async {
+  Future getAllIzinKeluars() async {
     try {
-      surats.value.clear();
+      izins.value.clear();
       isLoading.value = true;
-      var response = await http.get(Uri.parse('${url}surats'), headers: {
+      var response = await http.get(Uri.parse('${url}izins'), headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer ${box.read('token')}',
       });
       if (response.statusCode == 200) {
         isLoading.value = false;
-        final content = json.decode(response.body)['surats'];
+        final content = json.decode(response.body)['izins'];
         for (var item in content) {
-          surats.value.add(SuratModel.fromJson(item));
+          izins.value.add(IzinKeluarModel.fromJson(item));
         }
       } else {
         isLoading.value = false;
@@ -42,16 +42,20 @@ class SuratController extends GetxController {
     }
   }
 
-  Future createSurats({
+  Future createIzinKeluars({
     required String content,
+    required DateTime rencanaBerangkat,
+    required DateTime rencanaKembali,
   }) async {
     try {
       var data = {
         'content': content,
+        'rencana_berangkat': rencanaBerangkat.toIso8601String(),
+        'rencana_kembali': rencanaKembali.toIso8601String(),
       };
 
       var response = await http.post(
-        Uri.parse('${url}surat/store'),
+        Uri.parse('${url}izin/store'),
         headers: {
           'Accept': 'application/json',
           'Authorization': 'Bearer ${box.read('token')}',

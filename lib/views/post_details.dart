@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:forumapp/models/post_model.dart';
-import 'package:forumapp/views/widgets/input_widget.dart';
+import 'package:delapp/models/post_model.dart';
+import 'package:delapp/views/widgets/input_widget.dart';
 import 'package:get/get.dart';
 import 'widgets/post_data.dart';
-import 'package:forumapp/controllers/post_controller.dart';
+import 'package:delapp/controllers/post_controller.dart';
 
 class PostDetails extends StatefulWidget {
   const PostDetails({super.key, required this.post});

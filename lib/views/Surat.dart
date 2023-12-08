@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:forumapp/controllers/surat_controller.dart';
-import 'package:forumapp/views/widgets/surat_data.dart';
+import 'package:delapp/controllers/surat_controller.dart';
+import 'package:delapp/views/widgets/surat_data.dart';
 import 'package:get/get.dart';
 import 'widgets/post_field.dart';
 

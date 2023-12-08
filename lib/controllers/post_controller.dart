@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:forumapp/constants/constants.dart';
-import 'package:forumapp/models/post_model.dart';
-import 'package:forumapp/models/comment_model.dart';
+import 'package:delapp/constants/constants.dart';
+import 'package:delapp/models/post_model.dart';
+import 'package:delapp/models/comment_model.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;

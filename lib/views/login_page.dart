@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:forumapp/controllers/authentication.dart';
-import 'package:forumapp/views/register_page.dart';
+import 'package:delapp/controllers/authentication.dart';
+import 'package:delapp/views/register_page.dart';
 import './widgets/input_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'widgets/post_field.dart';
 import 'widgets/post_data.dart';
-import 'package:forumapp/controllers/post_controller.dart';
+import 'package:delapp/controllers/post_controller.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

@@ -1,3 +1,4 @@
+import 'package:delapp/views/logins_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Forum App',
-      home: token == null ? const LoginPage() : const HomePage(),
+      home: token == null ? const LoginsPage() : const HomePage(),
     );
   }
 }

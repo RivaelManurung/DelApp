@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:forumapp/constants/constants.dart';
-import 'package:forumapp/views/Surat.dart';
-import 'package:forumapp/views/home.dart';
-import 'package:forumapp/views/main.dart';
+import 'package:delapp/constants/constants.dart';
+import 'package:delapp/views/Surat.dart';
+import 'package:delapp/views/home.dart';
+import 'package:delapp/views/main.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';

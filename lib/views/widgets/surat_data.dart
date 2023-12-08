@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:forumapp/controllers/surat_controller.dart';
-import 'package:forumapp/models/surat_model.dart';
+import 'package:delapp/controllers/surat_controller.dart';
+import 'package:delapp/models/surat_model.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 

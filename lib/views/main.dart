@@ -1,6 +1,7 @@
+import 'package:delapp/views/IzinKeluar.dart';
 import 'package:flutter/material.dart';
-import 'package:forumapp/views/home.dart';
-import 'package:forumapp/views/surat.dart';
+import 'package:delapp/views/home.dart';
+import 'package:delapp/views/surat.dart';
 
 class Main extends StatelessWidget {
   const Main({Key? key}) : super(key: key);
@@ -32,6 +33,14 @@ class Main extends StatelessWidget {
                 );
               },
               child: Text('Pindah ke Halaman Surat'),
+            ),ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => IzinKeluarPage()),
+                );
+              },
+              child: Text('Pindah ke Halaman Izin Keluar'),
             ),
             // Tambahkan tombol untuk menu lainnya di sini
           ],
