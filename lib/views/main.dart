@@ -1,10 +1,15 @@
-import 'package:delapp/views/IzinKeluar.dart';
+import 'package:delapp/controllers/authentication.dart';
 import 'package:flutter/material.dart';
+import 'package:delapp/views/IzinKeluar.dart';
+import 'package:delapp/views/booking.dart';
+import 'package:get/get.dart';
 import 'package:delapp/views/home.dart';
 import 'package:delapp/views/surat.dart';
 
 class Main extends StatelessWidget {
-  const Main({Key? key}) : super(key: key);
+  final AuthenticationController authController = Get.find();
+
+  Main({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +38,8 @@ class Main extends StatelessWidget {
                 );
               },
               child: Text('Pindah ke Halaman Surat'),
-            ),ElevatedButton(
+            ),
+            ElevatedButton(
               onPressed: () {
                 Navigator.push(
                   context,
@@ -41,6 +47,23 @@ class Main extends StatelessWidget {
                 );
               },
               child: Text('Pindah ke Halaman Izin Keluar'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => BookingPage()),
+                );
+              },
+              child: Text('Pindah ke Halaman Booking'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                await authController.logout();
+                // Setelah logout, kembali ke halaman login atau halaman lain yang sesuai
+                Navigator.pushReplacementNamed(context, '/login');
+              },
+              child: Text('Logout'),
             ),
             // Tambahkan tombol untuk menu lainnya di sini
           ],

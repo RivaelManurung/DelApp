@@ -3,11 +3,14 @@ import 'dart:convert';
 import 'package:delapp/constants/constants.dart';
 import 'package:delapp/views/Surat.dart';
 import 'package:delapp/views/home.dart';
+import 'package:delapp/views/home_screen.dart';
 import 'package:delapp/views/main.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class AuthenticationController extends GetxController {
   final isLoading = false.obs;
@@ -42,7 +45,7 @@ class AuthenticationController extends GetxController {
         isLoading.value = false;
         token.value = json.decode(response.body)['token'];
         box.write('token', token.value);
-        Get.offAll(() => const Main());
+        Get.offAll(() => MyApps());
       } else {
         isLoading.value = false;
         Get.snackbar(
@@ -84,7 +87,7 @@ class AuthenticationController extends GetxController {
         isLoading.value = false;
         token.value = json.decode(response.body)['token'];
         box.write('token', token.value);
-        Get.offAll(() => const Main());
+        Get.offAll(() => MyApps());
       } else {
         isLoading.value = false;
         Get.snackbar(
@@ -101,5 +104,22 @@ class AuthenticationController extends GetxController {
 
       print(e.toString());
     }
+  }
+
+  Future<void> logout() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+
+    if (token != null) {
+      await http.post(
+        Uri.parse('${url}/logout'),
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+      );
+    }
+
+    // Hapus token dari penyimpanan lokal
+    prefs.remove('token');
   }
 }

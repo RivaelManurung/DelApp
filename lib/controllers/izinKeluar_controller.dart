@@ -78,4 +78,33 @@ class IzinKeluarController extends GetxController {
       print(e.toString());
     }
   }
+
+  Future deleteIzinKeluar(int id) async {
+    try {
+      var response = await http.delete(
+        Uri.parse('${url}izin/delete/$id'),
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ${box.read('token')}',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        // Hapus izin keluar dari list lokal
+        izins.value.removeWhere((izin) => izin.id == id);
+        update(); // Update UI setelah izin dihapus
+        print('Izin berhasil dihapus');
+      } else {
+        Get.snackbar(
+          'Error',
+          json.decode(response.body)['message'],
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 }

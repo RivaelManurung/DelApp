@@ -1,19 +1,10 @@
-// To parse this JSON data, do
-//
-//     final postModel = postModelFromJson(jsonString);
-
-import 'dart:convert';
-IzinKeluarModel postModelFromJson(String str) => IzinKeluarModel.fromJson(json.decode(str));
-
-String postModelToJson(IzinKeluarModel data) => json.encode(data.toJson());
-
 class IzinKeluarModel {
   IzinKeluarModel({
     this.id,
     this.userId,
     this.content,
-    this.rencana_berangkat,
-    this.rencana_kembali,
+    this.rencanaBerangkat,
+    this.rencanaKembali,
     this.createdAt,
     this.updatedAt,
   });
@@ -21,8 +12,8 @@ class IzinKeluarModel {
   int? id;
   int? userId;
   String? content;
-  DateTime? rencana_berangkat;
-  DateTime? rencana_kembali;
+  DateTime? rencanaBerangkat;
+  DateTime? rencanaKembali;
   DateTime? createdAt;
   DateTime? updatedAt;
 
@@ -30,8 +21,8 @@ class IzinKeluarModel {
         id: json["id"],
         userId: json["user_id"],
         content: json["content"],
-        rencana_berangkat: DateTime.parse(json["rencana_berangkat"]),
-        rencana_kembali: DateTime.parse(json["rencana_kembali"]),
+        rencanaBerangkat: DateTime.parse(json["rencana_berangkat"]),
+        rencanaKembali: DateTime.parse(json["rencana_kembali"]),
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
       );
@@ -40,9 +31,9 @@ class IzinKeluarModel {
         "id": id,
         "user_id": userId,
         "content": content,
-        "rencana_berangkat" : rencana_berangkat!.toIso8601String(),
-        "rencana_kembali" : rencana_kembali!.toIso8601String(),
+        "rencana_berangkat": rencanaBerangkat!.toIso8601String(),
+        "rencana_kembali": rencanaKembali!.toIso8601String(),
         "created_at": createdAt!.toIso8601String(),
         "updated_at": updatedAt!.toIso8601String(),
-       };
+      };
 }
