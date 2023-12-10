@@ -15,7 +15,7 @@ class LoginsPage extends StatefulWidget {
 }
 
 class _LoginsPageState extends State<LoginsPage> {
-  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final AuthenticationController _authenticationController =
       Get.put(AuthenticationController());
@@ -49,10 +49,10 @@ class _LoginsPageState extends State<LoginsPage> {
                   ),
                 ),
                 const SizedBox(height: 25),
-                // Username textfield
+                // name textfield
                 MyTextField(
-                  controller: _usernameController,
-                  hintText: 'Username',
+                  controller: _nameController,
+                  hintText: 'name',
                   obscureText: false,
                 ),
                 const SizedBox(height: 10),
@@ -89,7 +89,7 @@ class _LoginsPageState extends State<LoginsPage> {
                   ),
                   onPressed: () async {
                     await _authenticationController.login(
-                      username: _usernameController.text.trim(),
+                      name: _nameController.text.trim(),
                       password: _passwordController.text.trim(),
                     );
                   },

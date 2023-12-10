@@ -11,7 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class AuthenticationController extends GetxController {
   final isLoading = false.obs;
   final token = ''.obs;
@@ -20,17 +19,23 @@ class AuthenticationController extends GetxController {
 
   Future register({
     required String name,
-    required String username,
     required String email,
     required String password,
+    required String nomorKtp,
+    required String nim,
+    required String namaLengkap,
+    required String nomorHandphone,
   }) async {
     try {
       isLoading.value = true;
       var data = {
         'name': name,
-        'username': username,
         'email': email,
         'password': password,
+        'nomor_ktp': nomorKtp,
+        'nim': nim,
+        'nama_lengkap': namaLengkap,
+        'nomor_handphone': nomorHandphone,
       };
 
       var response = await http.post(
@@ -59,19 +64,18 @@ class AuthenticationController extends GetxController {
       }
     } catch (e) {
       isLoading.value = false;
-
       print(e.toString());
     }
   }
 
   Future login({
-    required String username,
+    required String name,
     required String password,
   }) async {
     try {
       isLoading.value = true;
       var data = {
-        'username': username,
+        'name': name,
         'password': password,
       };
 

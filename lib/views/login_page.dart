@@ -13,7 +13,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final AuthenticationController _authenticationController =
       Get.put(AuthenticationController());
@@ -40,9 +40,9 @@ class _LoginPageState extends State<LoginPage> {
                 height: 30,
               ),
               InputWidget(
-                hintText: 'Username',
+                hintText: 'Name',
                 obscureText: false,
-                controller: _usernameController,
+                controller: _nameController,
               ),
               const SizedBox(
                 height: 20,
@@ -66,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 onPressed: () async {
                   await _authenticationController.login(
-                    username: _usernameController.text.trim(),
+                    name: _nameController.text.trim(),
                     password: _passwordController.text.trim(),
                   );
                 },

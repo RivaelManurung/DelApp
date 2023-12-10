@@ -17,9 +17,14 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _nomorKtpController = TextEditingController();
+  final TextEditingController _nimController = TextEditingController();
+  final TextEditingController _namaLengkapController = TextEditingController();
+  final TextEditingController _nomorHandphoneController = TextEditingController();
+
   final AuthenticationController _authenticationController =
       Get.put(AuthenticationController());
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size.width;
@@ -47,15 +52,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 controller: _nameController,
               ),
               const SizedBox(
-                height: 30,
-              ),
-              InputWidget(
-                hintText: 'Username',
-                obscureText: false,
-                controller: _usernameController,
-              ),
-              const SizedBox(
-                height: 30,
+                height: 10,
               ),
               InputWidget(
                 hintText: 'Email',
@@ -63,7 +60,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 controller: _emailController,
               ),
               const SizedBox(
-                height: 20,
+                height: 10,
               ),
               InputWidget(
                 hintText: 'Password',
@@ -71,7 +68,39 @@ class _RegisterPageState extends State<RegisterPage> {
                 controller: _passwordController,
               ),
               const SizedBox(
-                height: 30,
+                height: 10,
+              ),
+              InputWidget(
+                hintText: 'Nomor KTP',
+                obscureText: false,
+                controller: _nomorKtpController,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              InputWidget(
+                hintText: 'NIM',
+                obscureText: false,
+                controller: _nimController,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              InputWidget(
+                hintText: 'Nama Lengkap',
+                obscureText: false,
+                controller: _namaLengkapController,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              InputWidget(
+                hintText: 'Nomor Handphone',
+                obscureText: false,
+                controller: _nomorHandphoneController,
+              ),
+              const SizedBox(
+                height: 20,
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
@@ -85,9 +114,12 @@ class _RegisterPageState extends State<RegisterPage> {
                 onPressed: () async {
                   await _authenticationController.register(
                     name: _nameController.text.trim(),
-                    username: _usernameController.text.trim(),
                     email: _emailController.text.trim(),
                     password: _passwordController.text.trim(),
+                    nomorKtp: _nomorKtpController.text.trim(),
+                    nim: _nimController.text.trim(),
+                    namaLengkap: _namaLengkapController.text.trim(),
+                    nomorHandphone: _nomorHandphoneController.text.trim(),
                   );
                 },
                 child: Obx(() {
