@@ -40,6 +40,7 @@ class BookingRuanganController extends GetxController {
   Rx<DateTime?> get rencana_berakhir => state.rencana_berakhir;
   Rx<Ruangan?> get ruangan => state.ruangan;
   final selectedRuangan = Rx<Ruangan?>(null);
+  
 
   @override
   void onInit() {
@@ -172,27 +173,51 @@ class BookingRuanganController extends GetxController {
       print(e.toString());
     }
   }
-  Future<Ruangan?> getRuanganById(int id) async {
-  try {
-    var response = await http.get(
-      Uri.parse('${url}ruangan/$id'),
-      headers: {
-        'Accept': 'application/json',
-        'Authorization': 'Bearer ${box.read('token')}',
-      },
-    );
 
-    if (response.statusCode == 200) {
-      final dynamic responseData = json.decode(response.body)['ruangan'];
-      return Ruangan.fromJson(responseData);
-    } else {
-      print(json.decode(response.body));
+  Future<Ruangan?> getRuanganById(int id) async {
+    try {
+      var response = await http.get(
+        Uri.parse('${url}ruangan/$id'),
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ${box.read('token')}',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final dynamic responseData = json.decode(response.body)['ruangan'];
+        return Ruangan.fromJson(responseData);
+      } else {
+        print(json.decode(response.body));
+        return null;
+      }
+    } catch (e) {
+      print(e.toString());
       return null;
     }
-  } catch (e) {
-    print(e.toString());
-    return null;
   }
-}
 
+  Future<void> updateBookingStatus(int bookingId, String newStatus) async {
+    try {
+      var response = await http.put(
+        Uri.parse('$url/booking/$bookingId/update-status'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ${box.read('token')}',
+        },
+        body: jsonEncode({
+          'status': newStatus,
+          // Add other fields as needed
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        print('Booking updated successfully');
+      } else {
+        print('Error updating booking: ${response.body}');
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
 }

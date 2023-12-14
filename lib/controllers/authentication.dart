@@ -4,7 +4,6 @@ import 'package:delapp/constants/constants.dart';
 import 'package:delapp/views/Surat.dart';
 import 'package:delapp/views/home.dart';
 import 'package:delapp/views/home_screen.dart';
-import 'package:delapp/views/main.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -125,5 +124,45 @@ class AuthenticationController extends GetxController {
 
     // Hapus token dari penyimpanan lokal
     prefs.remove('token');
+  }
+
+  Future loginAsBaak() async {
+    try {
+      isLoading.value = true;
+      var data = {
+        'name':
+            'baak', // Assuming 'baak' is the username for administrative login
+        'password': 'baak_password', // Replace with the actual password
+      };
+
+      var response = await http.post(
+        Uri.parse('$url/login'), // Use the regular login endpoint
+        headers: {
+          'Accept': 'application/json',
+        },
+        body: data,
+      );
+
+      if (response.statusCode == 200) {
+        isLoading.value = false;
+        token.value = json.decode(response.body)['token'];
+        box.write('token', token.value);
+        // Navigate to the admin screen or do other necessary actions
+        // Get.offAll(() => AdminScreen());
+      } else {
+        isLoading.value = false;
+        Get.snackbar(
+          'Error',
+          json.decode(response.body)['message'],
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+        print(json.decode(response.body));
+      }
+    } catch (e) {
+      isLoading.value = false;
+      print(e.toString());
+    }
   }
 }

@@ -51,7 +51,7 @@ class _BookingPageState extends State<BookingPage> {
                             'Rencana Peminjaman: ${booking.rencana_peminjaman?.toLocal()}',
                           ),
                           Text(
-                              'Rencana Kembali: ${booking.rencana_berakhir?.toLocal()}',
+                            'Rencana Kembali: ${booking.rencana_berakhir?.toLocal()}',
                           ),
                           FutureBuilder<Ruangan?>(
                             future: controller
@@ -168,7 +168,7 @@ class _BookingPageState extends State<BookingPage> {
                     }
                   }
                 },
-                child: Text('Pilih Rencana Peminjaman'),
+                child: Text('Pilih Rencana Berangkat'),
                 style: ElevatedButton.styleFrom(
                   primary: Colors.indigo,
                 ),
@@ -201,7 +201,7 @@ class _BookingPageState extends State<BookingPage> {
                     }
                   }
                 },
-                child: Text('Pilih Rencana Berakhir'),
+                child: Text('Pilih Rencana Kembali'),
                 style: ElevatedButton.styleFrom(
                   primary: Colors.indigo,
                 ),

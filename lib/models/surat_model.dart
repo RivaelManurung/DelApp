@@ -16,6 +16,8 @@ class SuratModel {
     this.createdAt,
     this.updatedAt,
     this.user,
+    this.status,
+
   });
 
   int? id;
@@ -24,6 +26,8 @@ class SuratModel {
   DateTime? createdAt;
   DateTime? updatedAt;
   User? user;
+  String? status; // Menambahkan status booking (misal: "pending", "approved", "rejected")
+
 
   factory SuratModel.fromJson(Map<String, dynamic> json) => SuratModel(
         id: json["id"],
@@ -32,6 +36,8 @@ class SuratModel {
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
         user: User.fromJson(json["user"]),
+        status: json["status"],
+
       );
 
   Map<String, dynamic> toJson() => {
@@ -41,6 +47,7 @@ class SuratModel {
         "created_at": createdAt!.toIso8601String(),
         "updated_at": updatedAt!.toIso8601String(),
         "user": user!.toJson(),
+        "status": status,
       };
 }
 

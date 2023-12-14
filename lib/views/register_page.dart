@@ -1,7 +1,6 @@
 import 'package:delapp/views/logins_page.dart';
 import 'package:flutter/material.dart';
 import 'package:delapp/controllers/authentication.dart';
-import 'package:delapp/views/login_page.dart';
 import 'package:get/get.dart';
 import './widgets/input_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -20,7 +19,8 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _nomorKtpController = TextEditingController();
   final TextEditingController _nimController = TextEditingController();
   final TextEditingController _namaLengkapController = TextEditingController();
-  final TextEditingController _nomorHandphoneController = TextEditingController();
+  final TextEditingController _nomorHandphoneController =
+      TextEditingController();
 
   final AuthenticationController _authenticationController =
       Get.put(AuthenticationController());

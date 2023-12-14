@@ -1,5 +1,4 @@
 import 'package:delapp/controllers/authentication.dart';
-import 'package:delapp/controllers/admin_authentication.dart'; // Import the AdminAuthenticationController
 import 'package:delapp/views/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:delapp/components/my_textfield.dart';
@@ -7,20 +6,18 @@ import 'package:delapp/components/square_tile.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LoginsPage extends StatefulWidget {
-  const LoginsPage({Key? key}) : super(key: key);
+class LoginsAdminPage extends StatefulWidget {
+  const LoginsAdminPage({Key? key}) : super(key: key);
 
   @override
-  State<LoginsPage> createState() => _LoginsPageState();
+  State<LoginsAdminPage> createState() => _LoginsAdminPageState();
 }
 
-class _LoginsPageState extends State<LoginsPage> {
+class _LoginsAdminPageState extends State<LoginsAdminPage> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final AuthenticationController _authenticationController =
       Get.put(AuthenticationController());
-  final AdminAuthenticationController _adminAuthenticationController =
-      Get.put(AdminAuthenticationController()); // Create an instance of AdminAuthenticationController
 
   void signUserIn() {
     // Implement your sign-in logic here
@@ -108,7 +105,8 @@ class _LoginsPageState extends State<LoginsPage> {
                           );
                   }),
                 ),
-                const SizedBox(height: 20),
+
+                const SizedBox(height: 50),
                 // Or continue with
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -136,7 +134,7 @@ class _LoginsPageState extends State<LoginsPage> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 50),
                 // Google + Apple sign-in buttons
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -148,7 +146,7 @@ class _LoginsPageState extends State<LoginsPage> {
                     SquareTile(imagePath: 'images/logoFacebook.png'),
                   ],
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 50),
                 // Not a member? Register now
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -171,28 +169,6 @@ class _LoginsPageState extends State<LoginsPage> {
                       ),
                     )
                   ],
-                ),
-                const SizedBox(height: 20),
-                // Admin Login button
-                ElevatedButton(
-                  onPressed: () async {
-                    await _adminAuthenticationController.login(
-                      name: _nameController.text.trim(),
-                      password: _passwordController.text.trim(),
-                    );
-                  },
-                  child: Obx(() {
-                    return _adminAuthenticationController.isLoading.value
-                        ? const CircularProgressIndicator(
-                            color: Colors.white,
-                          )
-                        : Text(
-                            'Login as Admin',
-                            style: GoogleFonts.poppins(
-                              fontSize: size * 0.040,
-                            ),
-                          );
-                  }),
                 ),
               ],
             ),

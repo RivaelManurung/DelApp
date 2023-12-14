@@ -1,8 +1,6 @@
-import 'package:delapp/views/IzinBermalam.dart';
-import 'package:delapp/views/IzinKeluar.dart';
-import 'package:delapp/views/Surat.dart';
-import 'package:delapp/views/booking.dart';
-import 'package:delapp/views/pembelianKaos.dart';
+import 'package:delapp/views/admin/IzinKeluar_admin.dart';
+import 'package:delapp/views/admin/Surat.dart';
+import 'package:delapp/views/admin/bookingUpdate.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,11 +9,11 @@ void main() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
   ));
-  runApp(const MyApps());
+  runApp(const MyAppsAdmin());
 }
 
-class MyApps extends StatelessWidget {
-  const MyApps({super.key});
+class MyAppsAdmin extends StatelessWidget {
+  const MyAppsAdmin({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -44,41 +42,22 @@ class _MyHomePageState extends State<MyHomePage> {
       case 'Izin Keluar':
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => IzinKeluarPage()),
+          MaterialPageRoute(builder: (context) => IzinKeluarPageAdmin()),
         );
         break;
       case 'Request surat':
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => SuratPage()), // Navigate to Request Surat Page
+          MaterialPageRoute(builder: (context) => SuratPageAdmin()), // Navigate to Request Surat Page
         );
         break;
         case 'Booking ruangan':
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => BookingPage()), // Navigate to Request Surat Page
+          MaterialPageRoute(builder: (context) => AdminBookingPage()), // Navigate to Request Surat Page
         );
         break;
-        case 'Booking ruangan':
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => BookingPage()), // Navigate to Request Surat Page
-        );
-        break;
-        case 'Izin Bermalam':
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => IzinBermalamPage()),
-        );
-        break;
-
-      case 'Pembelian Kaos':
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => PembelianKaosPage()),
-        );
-        break;
-      // Add cases for other dashboard items here
+       
     }
   }
 
@@ -131,7 +110,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 const SizedBox(height: 50),
                 ListTile(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 30),
-                  title: Text('Hello Selamat Datang', style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.white)),
+                  title: Text('Hello Admin!', style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.white)),
+                  subtitle: Text('Good Morning', style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.white54)),
                 ),
                 const SizedBox(height: 30)
               ],
@@ -154,9 +134,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   itemDashboard('Izin Keluar', CupertinoIcons.arrow_right_square, Colors.deepOrange),
                   itemDashboard('Request surat', CupertinoIcons.envelope, Colors.green),
                   itemDashboard('Booking ruangan', CupertinoIcons.house, Colors.purple),
-                  itemDashboard('Izin Bermalam', CupertinoIcons.chat_bubble_2, Colors.brown),
-                  itemDashboard('Pembelian Kaos', CupertinoIcons.add_circled, Colors.teal),
-                  itemDashboard('Logout', CupertinoIcons.question_circle, Colors.blue),
+                  itemDashboard('Admin', CupertinoIcons.chat_bubble_2, Colors.brown),
+                  itemDashboard('Revenue', CupertinoIcons.money_dollar_circle, Colors.indigo),
+                  itemDashboard('Upload', CupertinoIcons.add_circled, Colors.teal),
+                  itemDashboard('About', CupertinoIcons.question_circle, Colors.blue),
+                  itemDashboard('Contact', CupertinoIcons.phone, Colors.pinkAccent),
                 ],
               ),
             ),
