@@ -1,16 +1,17 @@
-import 'package:delapp/models/izinKeluar_model.dart';
+import 'package:delapp/controllers/izinBermalam_controller.dart';
+import 'package:delapp/models/izinBermalam_model.dart';
 import 'package:flutter/material.dart';
-import 'package:delapp/controllers/izinKeluar_controller.dart';
 import 'package:get/get.dart';
 
-class IzinKeluarPage extends StatefulWidget {
+class IzinBermalamPage extends StatefulWidget {
   @override
-  _IzinKeluarPageState createState() => _IzinKeluarPageState();
+  _IzinBermalamPageState createState() => _IzinBermalamPageState();
 }
 
-class _IzinKeluarPageState extends State<IzinKeluarPage> {
-  final IzinKeluarController izinKeluarController =
-      Get.put(IzinKeluarController());
+class _IzinBermalamPageState extends State<IzinBermalamPage> {
+  final IzinBermalamController izinBermalamController =
+      Get.put(IzinBermalamController());
+
   final TextEditingController contentController = TextEditingController();
   final TextEditingController rencanaBerangkatController =
       TextEditingController();
@@ -20,56 +21,56 @@ class _IzinKeluarPageState extends State<IzinKeluarPage> {
   @override
   void initState() {
     super.initState();
-    izinKeluarController.getAllIzinKeluars();
+    izinBermalamController.getAllIzinBermalams();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Izin Keluar'),
+        title: const Text('Izin Bermalam'),
       ),
       body: Obx(
-        () => izinKeluarController.isLoading.value
-            ? Center(child: CircularProgressIndicator())
+        () => izinBermalamController.isLoading.value
+            ? const Center(child: CircularProgressIndicator())
             : ListView.builder(
-                itemCount: izinKeluarController.izins.value.length,
+                itemCount: izinBermalamController.izins.value.length,
                 itemBuilder: (context, index) {
-                  var izin = izinKeluarController.izins.value[index];
+                  var izin = izinBermalamController.izins.value[index];
                   return Card(
                     elevation: 4,
-                    margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: ListTile(
                       title: Text(
                         izin.content ?? '',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                       subtitle: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(height: 8),
-                          Text(
+                          const SizedBox(height: 8),
+                          const Text(
                             'Rencana Berangkat:',
                             style: TextStyle(color: Colors.grey),
                           ),
                           Text(
                             '${izin.rencanaBerangkat?.toLocal() ?? 'Not specified'}',
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(height: 8),
-                          Text(
+                          const SizedBox(height: 8),
+                          const Text(
                             'Rencana Kembali:',
-                            style: TextStyle(color: const Color.fromARGB(255, 192, 181, 181)),
+                            style: TextStyle(color: Colors.grey),
                           ),
                           Text(
                             '${izin.rencanaKembali?.toLocal() ?? 'Not specified'}',
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
                             ),
@@ -77,7 +78,7 @@ class _IzinKeluarPageState extends State<IzinKeluarPage> {
                         ],
                       ),
                       trailing: IconButton(
-                        icon: Icon(Icons.delete),
+                        icon: const Icon(Icons.delete),
                         onPressed: () {
                           _showDeleteConfirmationDialog(izin);
                         },
@@ -94,18 +95,18 @@ class _IzinKeluarPageState extends State<IzinKeluarPage> {
         onPressed: () {
           _showFormDialog();
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
 
-  Future<void> _showDeleteConfirmationDialog(IzinKeluarModel izin) async {
+  Future<void> _showDeleteConfirmationDialog(IzinBermalamModel izin) async {
     return showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
           title: Text('Konfirmasi Hapus'),
-          content: Text('Apakah Anda yakin ingin menghapus izin keluar ini?'),
+          content: Text('Apakah Anda yakin ingin menghapus izin bermalam ini?'),
           actions: [
             TextButton(
               onPressed: () {
@@ -155,7 +156,7 @@ class _IzinKeluarPageState extends State<IzinKeluarPage> {
     }
 
     Get.defaultDialog(
-      title: 'Tambah Izin Keluar',
+      title: 'Tambah Izin Bermalam',
       content: Column(
         children: [
           TextFormField(
@@ -219,22 +220,22 @@ class _IzinKeluarPageState extends State<IzinKeluarPage> {
     }
   }
 
-  void _deleteIzin(IzinKeluarModel izin) {
+  void _deleteIzin(IzinBermalamModel izin) {
     // Pastikan izin.id tidak null sebelum memanggil fungsi hapus
     if (izin.id != null) {
       // Panggil fungsi hapus izin di controller
-      izinKeluarController.deleteIzinKeluar(izin.id!);
+      izinBermalamController.deleteIzinBermalam(izin.id!);
 
       // Tampilkan notifikasi berhasil dihapus
       Get.snackbar(
         'Berhasil',
-        'Izin keluar berhasil dihapus',
+        'Izin bermalam berhasil dihapus',
         backgroundColor: Colors.green,
         colorText: Colors.white,
       );
 
       // Refresh data setelah penghapusan izin
-      izinKeluarController.getAllIzinKeluars();
+      izinBermalamController.getAllIzinBermalams();
     } else {
       // Handle jika izin.id null (optional)
       print('ID izin null, tidak dapat menghapus izin.');
@@ -245,7 +246,7 @@ class _IzinKeluarPageState extends State<IzinKeluarPage> {
     DateTime rencanaBerangkat = DateTime.parse(rencanaBerangkatController.text);
     DateTime rencanaKembali = DateTime.parse(rencanaKembaliController.text);
 
-    izinKeluarController.createIzinKeluars(
+    izinBermalamController.createIzinBermalams(
       content: contentController.text,
       rencanaBerangkat: rencanaBerangkat,
       rencanaKembali: rencanaKembali,
@@ -254,13 +255,13 @@ class _IzinKeluarPageState extends State<IzinKeluarPage> {
     // Tampilkan notifikasi berhasil ditambahkan
     Get.snackbar(
       'Berhasil',
-      'Izin keluar berhasil ditambahkan',
+      'Izin bermalam berhasil ditambahkan',
       backgroundColor: Colors.green,
       colorText: Colors.white,
     );
 
     // Refresh data setelah penambahan izin
-    izinKeluarController.getAllIzinKeluars();
+    izinBermalamController.getAllIzinBermalams();
 
     // Bersihkan nilai pada controller setelah submit
     contentController.clear();

@@ -61,7 +61,7 @@ class Main extends StatelessWidget {
               onPressed: () async {
                 await authController.logout();
                 // Setelah logout, kembali ke halaman login atau halaman lain yang sesuai
-                Navigator.pushReplacementNamed(context, '/login');
+                Navigator.pushReplacementNamed(context, 'login');
               },
               child: Text('Logout'),
             ),
@@ -74,6 +74,12 @@ class Main extends StatelessWidget {
 }
 
 void main() {
+  // Inisialisasi GetX
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Menambahkan instance AuthenticationController ke dalam container
+  Get.put(AuthenticationController());
+
   runApp(MaterialApp(
     home: Main(),
   ));

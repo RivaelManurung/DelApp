@@ -1,9 +1,11 @@
 import 'package:delapp/views/IzinKeluar.dart';
 import 'package:delapp/views/Surat.dart';
 import 'package:delapp/views/booking.dart';
+import 'package:delapp/views/pembelianKaos.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:delapp/views/IzinBermalam.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -28,7 +30,6 @@ class MyApps extends StatelessWidget {
   }
 }
 
-
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
@@ -45,52 +46,74 @@ class _MyHomePageState extends State<MyHomePage> {
           MaterialPageRoute(builder: (context) => IzinKeluarPage()),
         );
         break;
+
       case 'Request surat':
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => SuratPage()), // Navigate to Request Surat Page
+          MaterialPageRoute(
+              builder: (context) =>
+                  SuratPage()), // Navigate to Request Surat Page
         );
         break;
-        case 'Booking ruangan':
+
+      case 'Booking ruangan':
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => BookingPage()), // Navigate to Request Surat Page
+          MaterialPageRoute(
+              builder: (context) =>
+                  BookingPage()), // Navigate to Request Surat Page
+        );
+        break;
+
+      case 'Izin Bermalam':
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => IzinBermalamPage()),
+        );
+        break;
+
+      case 'Pembelian Kaos':
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => PembelianKaosPage()),
         );
         break;
       // Add cases for other dashboard items here
     }
   }
 
-  Widget itemDashboard(String title, IconData iconData, Color background) => GestureDetector(
-    onTap: () => _navigateToPage(title),
-    child: Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-              offset: const Offset(0, 5),
-              color: Theme.of(context).primaryColor.withOpacity(.2),
-              spreadRadius: 2,
-              blurRadius: 5),
-        ],
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: background,
-                shape: BoxShape.circle,
-              ),
-              child: Icon(iconData, color: Colors.white)),
-          const SizedBox(height: 8),
-          Text(title.toUpperCase(), style: Theme.of(context).textTheme.titleMedium),
-        ],
-      ),
-    ),
-  );
+  Widget itemDashboard(String title, IconData iconData, Color background) =>
+      GestureDetector(
+        onTap: () => _navigateToPage(title),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(
+                  offset: const Offset(0, 5),
+                  color: Theme.of(context).primaryColor.withOpacity(.2),
+                  spreadRadius: 2,
+                  blurRadius: 5),
+            ],
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: background,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(iconData, color: Colors.white)),
+              const SizedBox(height: 8),
+              Text(title.toUpperCase(),
+                  style: Theme.of(context).textTheme.titleMedium),
+            ],
+          ),
+        ),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -110,8 +133,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 const SizedBox(height: 50),
                 ListTile(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 30),
-                  title: Text('Hello Ahad!', style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.white)),
-                  subtitle: Text('Good Morning', style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.white54)),
+                  title: Text('Hello Ahad!',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineSmall
+                          ?.copyWith(color: Colors.white)),
+                  subtitle: Text('Good Morning',
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleMedium
+                          ?.copyWith(color: Colors.white54)),
                 ),
                 const SizedBox(height: 30)
               ],
@@ -123,7 +154,8 @@ class _MyHomePageState extends State<MyHomePage> {
               padding: const EdgeInsets.symmetric(horizontal: 30),
               decoration: const BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(200))),
+                  borderRadius:
+                      BorderRadius.only(topLeft: Radius.circular(200))),
               child: GridView.count(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
@@ -131,14 +163,22 @@ class _MyHomePageState extends State<MyHomePage> {
                 crossAxisSpacing: 40,
                 mainAxisSpacing: 30,
                 children: [
-                  itemDashboard('Izin Keluar', CupertinoIcons.play_rectangle, Colors.deepOrange),
-                  itemDashboard('Request surat', CupertinoIcons.graph_circle, Colors.green),
-                  itemDashboard('Booking ruangan', CupertinoIcons.person_2, Colors.purple),
-                  itemDashboard('Comments', CupertinoIcons.chat_bubble_2, Colors.brown),
-                  itemDashboard('Revenue', CupertinoIcons.money_dollar_circle, Colors.indigo),
-                  itemDashboard('Upload', CupertinoIcons.add_circled, Colors.teal),
-                  itemDashboard('About', CupertinoIcons.question_circle, Colors.blue),
-                  itemDashboard('Contact', CupertinoIcons.phone, Colors.pinkAccent),
+                  itemDashboard('Izin Keluar', CupertinoIcons.play_rectangle,
+                      Colors.deepOrange),
+                  itemDashboard('Request surat', CupertinoIcons.graph_circle,
+                      Colors.green),
+                  itemDashboard('Booking ruangan', CupertinoIcons.person_2,
+                      Colors.purple),
+                  itemDashboard('Izin Bermalam', CupertinoIcons.chat_bubble_2,
+                      Colors.brown),
+                  itemDashboard('Pembelian Kaos',
+                      CupertinoIcons.money_dollar_circle, Colors.indigo),
+                  itemDashboard(
+                      'Upload', CupertinoIcons.add_circled, Colors.teal),
+                  itemDashboard(
+                      'About', CupertinoIcons.question_circle, Colors.blue),
+                  itemDashboard(
+                      'Contact', CupertinoIcons.phone, Colors.pinkAccent),
                 ],
               ),
             ),
@@ -149,3 +189,6 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+
+

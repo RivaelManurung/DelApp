@@ -1,7 +1,6 @@
 import 'package:delapp/controllers/authentication.dart';
 import 'package:delapp/views/register_page.dart';
 import 'package:flutter/material.dart';
-import 'package:delapp/components/my_button.dart';
 import 'package:delapp/components/my_textfield.dart';
 import 'package:delapp/components/square_tile.dart';
 import 'package:get/get.dart';
@@ -41,7 +40,7 @@ class _LoginsPageState extends State<LoginsPage> {
                 SquareTile(imagePath: 'images/del.jpg'),
                 const SizedBox(height: 50),
                 // Welcome text
-                Text(
+                const Text(
                   'Welcome back, you\'ve been missed!',
                   style: TextStyle(
                     color: Colors.white,
