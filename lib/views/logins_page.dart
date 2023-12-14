@@ -43,7 +43,7 @@ class _LoginsPageState extends State<LoginsPage> {
                 SquareTile(imagePath: 'images/del.jpg'),
                 const SizedBox(height: 50),
                 // Welcome text
-                Text(
+                const Text(
                   'Welcome back, you\'ve been missed!',
                   style: TextStyle(
                     color: Colors.white,

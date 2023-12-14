@@ -24,7 +24,9 @@ class Ruangan {
 }
 
 class BookingState {
+  // ignore: non_constant_identifier_names
   final rencana_peminjaman = Rx<DateTime?>(null);
+  // ignore: non_constant_identifier_names
   final rencana_berakhir = Rx<DateTime?>(null);
   final ruangan = Rx<Ruangan?>(null);
 }
@@ -51,6 +53,7 @@ class BookingRuanganController extends GetxController {
 
   Future getAllBookings() async {
     try {
+      // ignore: invalid_use_of_protected_member
       bookings.value.clear();
       isLoading.value = true;
 
@@ -81,6 +84,7 @@ class BookingRuanganController extends GetxController {
 
   Future getRuangans() async {
     try {
+      // ignore: invalid_use_of_protected_member
       ruangans.value.clear();
       isLoading.value = true;
 

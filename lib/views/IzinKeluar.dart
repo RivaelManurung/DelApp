@@ -65,7 +65,7 @@ class _IzinKeluarPageState extends State<IzinKeluarPage> {
                           SizedBox(height: 8),
                           Text(
                             'Rencana Kembali:',
-                            style: TextStyle(color: Colors.grey),
+                            style: TextStyle(color: const Color.fromARGB(255, 192, 181, 181)),
                           ),
                           Text(
                             '${izin.rencanaKembali?.toLocal() ?? 'Not specified'}',

@@ -1,8 +1,6 @@
 import 'dart:convert';
 
 import 'package:delapp/constants/constants.dart';
-import 'package:delapp/views/Surat.dart';
-import 'package:delapp/views/home.dart';
 import 'package:delapp/views/home_screen.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -49,7 +47,7 @@ class AuthenticationController extends GetxController {
         isLoading.value = false;
         token.value = json.decode(response.body)['token'];
         box.write('token', token.value);
-        Get.offAll(() => MyApps());
+        Get.offAll(() => const MyApps());
       } else {
         isLoading.value = false;
         Get.snackbar(
@@ -59,10 +57,12 @@ class AuthenticationController extends GetxController {
           backgroundColor: Colors.red,
           colorText: Colors.white,
         );
+        // ignore: avoid_print
         print(json.decode(response.body));
       }
     } catch (e) {
       isLoading.value = false;
+      // ignore: avoid_print
       print(e.toString());
     }
   }
@@ -90,7 +90,7 @@ class AuthenticationController extends GetxController {
         isLoading.value = false;
         token.value = json.decode(response.body)['token'];
         box.write('token', token.value);
-        Get.offAll(() => MyApps());
+        Get.offAll(() => const MyApps());
       } else {
         isLoading.value = false;
         Get.snackbar(
@@ -100,11 +100,13 @@ class AuthenticationController extends GetxController {
           backgroundColor: Colors.red,
           colorText: Colors.white,
         );
+        // ignore: avoid_print
         print(json.decode(response.body));
       }
     } catch (e) {
       isLoading.value = false;
 
+      // ignore: avoid_print
       print(e.toString());
     }
   }
@@ -115,6 +117,7 @@ class AuthenticationController extends GetxController {
 
     if (token != null) {
       await http.post(
+        // ignore: unnecessary_brace_in_string_interps
         Uri.parse('${url}/logout'),
         headers: {
           'Authorization': 'Bearer $token',
