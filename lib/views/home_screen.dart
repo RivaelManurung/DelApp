@@ -153,20 +153,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 const SizedBox(height: 50),
                 ListTile(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 30),
-<<<<<<< HEAD
                   title: Text('Hello Selamat Datang', style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.white)),
-=======
-                  title: Text('Hello Ahad!',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineSmall
-                          ?.copyWith(color: Colors.white)),
-                  subtitle: Text('Good Morning',
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleMedium
-                          ?.copyWith(color: Colors.white54)),
->>>>>>> 82a9f39704c240249ab6d1d48e5bbb9b9a10cdfb
                 ),
                 const SizedBox(height: 30)
               ],
@@ -187,31 +174,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 crossAxisSpacing: 40,
                 mainAxisSpacing: 30,
                 children: [
-<<<<<<< HEAD
                   itemDashboard('Izin Keluar', CupertinoIcons.arrow_right_square, Colors.deepOrange),
                   itemDashboard('Request surat', CupertinoIcons.envelope, Colors.green),
                   itemDashboard('Booking ruangan', CupertinoIcons.house, Colors.purple),
                   itemDashboard('Izin Bermalam', CupertinoIcons.chat_bubble_2, Colors.brown),
                   itemDashboard('Pembelian Kaos', CupertinoIcons.add_circled, Colors.teal),
                   itemDashboard('Logout', CupertinoIcons.question_circle, Colors.blue),
-=======
-                  itemDashboard('Izin Keluar', CupertinoIcons.play_rectangle,
-                      Colors.deepOrange),
-                  itemDashboard('Request surat', CupertinoIcons.graph_circle,
-                      Colors.green),
-                  itemDashboard('Booking ruangan', CupertinoIcons.person_2,
-                      Colors.purple),
-                  itemDashboard('Izin Bermalam', CupertinoIcons.chat_bubble_2,
-                      Colors.brown),
-                  itemDashboard('Pembelian Kaos',
-                      CupertinoIcons.money_dollar_circle, Colors.indigo),
-                  itemDashboard(
-                      'Upload', CupertinoIcons.add_circled, Colors.teal),
-                  itemDashboard(
-                      'About', CupertinoIcons.question_circle, Colors.blue),
-                  itemDashboard(
-                      'Contact', CupertinoIcons.phone, Colors.pinkAccent),
->>>>>>> 82a9f39704c240249ab6d1d48e5bbb9b9a10cdfb
+
                 ],
               ),
             ),

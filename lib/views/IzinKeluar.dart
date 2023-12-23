@@ -1,5 +1,5 @@
-import 'package:delapp/models/izinKeluar_model.dart';
 import 'package:flutter/material.dart';
+import 'package:delapp/models/izinKeluar_model.dart';
 import 'package:delapp/controllers/izinKeluar_controller.dart';
 import 'package:get/get.dart';
 
@@ -28,74 +28,124 @@ class _IzinKeluarPageState extends State<IzinKeluarPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Izin Keluar'),
+        backgroundColor: Colors.blue,
       ),
-      body: Obx(
-        () => izinKeluarController.isLoading.value
-            ? Center(child: CircularProgressIndicator())
-            : ListView.builder(
-                itemCount: izinKeluarController.izins.value.length,
-                itemBuilder: (context, index) {
-                  var izin = izinKeluarController.izins.value[index];
-                  return Card(
-                    elevation: 4,
-                    margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: ListTile(
-                      title: Text(
-                        izin.content ?? '',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(height: 8),
-                          Text(
-                            'Rencana Berangkat:',
-                            style: TextStyle(color: Colors.grey),
-                          ),
-                          Text(
-                            '${izin.rencanaBerangkat?.toLocal() ?? 'Not specified'}',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(height: 8),
-                          Text(
-                            'Rencana Kembali:',
-                            style: TextStyle(color: const Color.fromARGB(255, 192, 181, 181)),
-                          ),
-                          Text(
-                            '${izin.rencanaKembali?.toLocal() ?? 'Not specified'}',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                      trailing: IconButton(
-                        icon: Icon(Icons.delete),
-                        onPressed: () {
-                          _showDeleteConfirmationDialog(izin);
-                        },
-                      ),
-                      onTap: () {
-                        // Handle item click
-                      },
-                    ),
-                  );
-                },
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Expanded(
+            child: Obx(
+              () => izinKeluarController.isLoading.value
+                  ? Center(child: CircularProgressIndicator())
+                  : _buildList(),
+            ),
+          ),
+        ],
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: _buildAddButton(),
+    );
+  }
+
+  Widget _buildAddButton() {
+    return ElevatedButton(
+      onPressed: () {
+        _showFormDialog();
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Text(
+          'Tambah Izin Keluar',
+          style: TextStyle(fontSize: 18),
+        ),
+      ),
+      style: ElevatedButton.styleFrom(
+        primary: Colors.blue,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildList() {
+    return ListView.builder(
+      itemCount: izinKeluarController.izins.value.length,
+      itemBuilder: (context, index) {
+        var izin = izinKeluarController.izins.value[index];
+        return _buildListItem(izin);
+      },
+    );
+  }
+
+  Widget _buildListItem(IzinKeluarModel izin) {
+    return Container(
+      margin: EdgeInsets.all(16),
+      child: Card(
+        elevation: 4,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildInfoRow('Content', izin.content ?? 'Not specified'),
+              SizedBox(height: 8),
+              _buildInfoRow(
+                'Rencana Berangkat',
+                '${izin.rencanaBerangkat?.toLocal() ?? 'Not specified'}',
               ),
+              SizedBox(height: 8),
+              _buildInfoRow(
+                'Rencana Kembali',
+                '${izin.rencanaKembali?.toLocal() ?? 'Not specified'}',
+              ),
+              SizedBox(height: 8),
+              _buildInfoRow('Status', izin.status ?? 'Not specified'),
+              SizedBox(height: 16),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      _showDeleteConfirmationDialog(izin);
+                    },
+                    child: Text('Hapus'),
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.red,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _showFormDialog();
-        },
-        child: Icon(Icons.add),
-      ),
+    );
+  }
+
+  Widget _buildInfoRow(String label, String value) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          '$label:',
+          style: TextStyle(
+            color: Colors.grey,
+          ),
+        ),
+        SizedBox(width: 8),
+        Expanded(
+          child: Text(
+            value,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -109,16 +159,16 @@ class _IzinKeluarPageState extends State<IzinKeluarPage> {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(); // Tutup dialog konfirmasi
+                Navigator.of(context).pop();
               },
-              child: Text('Batal'),
+              child: Text('Batal', style: TextStyle(color: Colors.black)),
             ),
             TextButton(
               onPressed: () {
                 _deleteIzin(izin);
-                Navigator.of(context).pop(); // Tutup dialog konfirmasi
+                Navigator.of(context).pop();
               },
-              child: Text('Hapus'),
+              child: Text('Hapus', style: TextStyle(color: Colors.red)),
             ),
           ],
         );
@@ -160,19 +210,45 @@ class _IzinKeluarPageState extends State<IzinKeluarPage> {
         children: [
           TextFormField(
             controller: contentController,
-            decoration: InputDecoration(labelText: 'Content'),
+            decoration: InputDecoration(
+              labelText: 'Content',
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.blue, width: 2.0),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey, width: 1.0),
+              ),
+            ),
           ),
+          SizedBox(height: 8),
           TextFormField(
             controller: rencanaBerangkatController,
-            decoration: InputDecoration(labelText: 'Rencana Berangkat'),
+            decoration: InputDecoration(
+              labelText: 'Rencana Berangkat',
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.blue, width: 2.0),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey, width: 1.0),
+              ),
+            ),
             readOnly: true,
             onTap: () async {
               await _pickDateTime(rencanaBerangkatController);
             },
           ),
+          SizedBox(height: 8),
           TextFormField(
             controller: rencanaKembaliController,
-            decoration: InputDecoration(labelText: 'Rencana Kembali'),
+            decoration: InputDecoration(
+              labelText: 'Rencana Kembali',
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.blue, width: 2.0),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey, width: 1.0),
+              ),
+            ),
             readOnly: true,
             onTap: () async {
               await _pickDateTime(rencanaKembaliController);
@@ -185,6 +261,12 @@ class _IzinKeluarPageState extends State<IzinKeluarPage> {
               Get.back(); // Tutup dialog setelah submit
             },
             child: Text('Submit'),
+            style: ElevatedButton.styleFrom(
+              primary: Colors.blue,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
           ),
         ],
       ),
@@ -249,6 +331,7 @@ class _IzinKeluarPageState extends State<IzinKeluarPage> {
       content: contentController.text,
       rencanaBerangkat: rencanaBerangkat,
       rencanaKembali: rencanaKembali,
+      status: 'Pending', // Set the default status
     );
 
     // Tampilkan notifikasi berhasil ditambahkan

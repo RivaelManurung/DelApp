@@ -1,3 +1,5 @@
+// adminbooking_controller.dart
+
 import 'dart:convert';
 
 import 'package:delapp/constants/constants.dart';
@@ -10,8 +12,6 @@ import 'package:http/http.dart' as http;
 
 class AdminBookingController extends GetxController {
   final isLoading = false.obs;
-  final token = ''.obs;
-
   final box = GetStorage();
 
   RxList<BookingRuanganModel> bookings = RxList<BookingRuanganModel>([]);
@@ -28,7 +28,7 @@ class AdminBookingController extends GetxController {
       isLoading.value = true;
 
       var response = await http.get(
-        Uri.parse('${url}bookings'),
+        Uri.parse('${url}baak/bookings'),
         headers: {
           'Accept': 'application/json',
           'Authorization': 'Bearer ${box.read('token')}',
@@ -39,24 +39,24 @@ class AdminBookingController extends GetxController {
         isLoading.value = false;
         final List<dynamic> responseData =
             json.decode(response.body)['bookings'];
+        print('Fetched Bookings: $responseData');
         bookings.assignAll(responseData
             .map((data) => BookingRuanganModel.fromJson(data))
             .toList());
       } else {
         isLoading.value = false;
-        print(json.decode(response.body));
+        print('Error: ${json.decode(response.body)}');
       }
     } catch (e) {
       isLoading.value = false;
-      print(e.toString());
+      print('Error: $e');
     }
   }
 
   Future<Ruangan?> getRuanganById(int id) async {
     try {
       var response = await http.get(
-        Uri.parse(
-            '$url/ruangan/$id'), 
+        Uri.parse('${url}ruangan/$id'),
         headers: {
           'Accept': 'application/json',
           'Authorization': 'Bearer ${box.read('token')}',
@@ -67,11 +67,11 @@ class AdminBookingController extends GetxController {
         final dynamic responseData = json.decode(response.body)['ruangan'];
         return Ruangan.fromJson(responseData);
       } else {
-        print(json.decode(response.body));
+        print('Error: ${json.decode(response.body)}');
         return null;
       }
     } catch (e) {
-      print(e.toString());
+      print('Error: $e');
       return null;
     }
   }

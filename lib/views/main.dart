@@ -1,9 +1,9 @@
 import 'package:delapp/controllers/authentication.dart';
+import 'package:delapp/views/admin/home_screen_admin.dart';
 import 'package:flutter/material.dart';
 import 'package:delapp/views/IzinKeluar.dart';
 import 'package:delapp/views/booking.dart';
 import 'package:get/get.dart';
-import 'package:delapp/views/home.dart';
 import 'package:delapp/views/surat.dart';
 
 class Main extends StatelessWidget {
@@ -25,7 +25,7 @@ class Main extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => HomePage()),
+                  MaterialPageRoute(builder: (context) => MyHomePage()),
                 );
               },
               child: Text('Pindah ke Halaman Home'),

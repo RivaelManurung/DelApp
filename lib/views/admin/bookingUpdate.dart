@@ -1,3 +1,5 @@
+// admin_booking_page.dart
+
 import 'package:delapp/controllers/adminbooking_controller.dart';
 import 'package:delapp/controllers/booking_controller.dart';
 import 'package:flutter/material.dart';
@@ -59,27 +61,19 @@ class _AdminBookingPageState extends State<AdminBookingPage> {
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
-                                return Text(
-                                  'Ruangan: Loading...',
-                                  style: TextStyle(fontStyle: FontStyle.italic),
-                                );
+                                return Text('Ruangan: Loading...');
                               } else if (snapshot.hasError) {
-                                return Text(
-                                  'Ruangan: Error',
-                                  style: TextStyle(color: Colors.red),
-                                );
+                                print(
+                                    'Error fetching ruangan: ${snapshot.error}');
+                                return Text('Ruangan: Error');
                               } else if (snapshot.hasData &&
                                   snapshot.data != null) {
                                 final ruangan = snapshot.data!;
-                                return Text(
-                                  'Ruangan: ${ruangan.namaRuangan}',
-                                  style: TextStyle(color: Colors.green),
-                                );
+                                print('Ruangan: ${ruangan.namaRuangan}');
+                                return Text('Ruangan: ${ruangan.namaRuangan}');
                               } else {
-                                return Text(
-                                  'Ruangan: Not available',
-                                  style: TextStyle(color: Colors.orange),
-                                );
+                                print('Ruangan: Not available');
+                                return Text('Ruangan: Not available');
                               }
                             },
                           ),

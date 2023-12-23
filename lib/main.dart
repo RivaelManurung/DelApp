@@ -2,10 +2,7 @@ import 'package:delapp/views/logins_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-<<<<<<< HEAD
-=======
-import 'views/home.dart';
->>>>>>> 82a9f39704c240249ab6d1d48e5bbb9b9a10cdfb
+
 
 void main() {
   runApp(const MyApp());

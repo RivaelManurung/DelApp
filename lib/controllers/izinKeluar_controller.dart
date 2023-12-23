@@ -1,14 +1,14 @@
 import 'dart:convert';
-
-import 'package:delapp/models/izinKeluar_model.dart';
-import 'package:flutter/material.dart';
 import 'package:delapp/constants/constants.dart';
+import 'package:flutter/material.dart';
+import 'package:delapp/models/izinKeluar_model.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 
 class IzinKeluarController extends GetxController {
-  Rx<List<IzinKeluarModel>> izins = Rx<List<IzinKeluarModel>>([]);
+  RxList<IzinKeluarModel> izins = <IzinKeluarModel>[].obs;
+
   final isLoading = false.obs;
   final box = GetStorage();
 
@@ -18,7 +18,7 @@ class IzinKeluarController extends GetxController {
     super.onInit();
   }
 
-  Future getAllIzinKeluars() async {
+  Future<void> getAllIzinKeluars() async {
     try {
       izins.value.clear();
       isLoading.value = true;
@@ -42,16 +42,20 @@ class IzinKeluarController extends GetxController {
     }
   }
 
+  
+
   Future createIzinKeluars({
     required String content,
     required DateTime rencanaBerangkat,
     required DateTime rencanaKembali,
+    required String status,
   }) async {
     try {
       var data = {
         'content': content,
         'rencana_berangkat': rencanaBerangkat.toIso8601String(),
         'rencana_kembali': rencanaKembali.toIso8601String(),
+        'status': status,
       };
 
       var response = await http.post(
@@ -90,9 +94,8 @@ class IzinKeluarController extends GetxController {
       );
 
       if (response.statusCode == 200) {
-        // Hapus izin keluar dari list lokal
         izins.value.removeWhere((izin) => izin.id == id);
-        update(); // Update UI setelah izin dihapus
+        update();
         print('Izin berhasil dihapus');
       } else {
         Get.snackbar(
@@ -107,4 +110,6 @@ class IzinKeluarController extends GetxController {
       print(e.toString());
     }
   }
+
+  
 }
